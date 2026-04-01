@@ -6,7 +6,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/{{ service.data_domains.controls[0] | lower }}s'
+      redirect: '/sentiments'
     },
     {
       path: '/login',
@@ -14,63 +14,91 @@ const router = createRouter({
       component: () => import('@/pages/LoginPage.vue'),
       meta: { requiresAuth: false }
     },
-    {% for item in service.data_domains.controls %}
-    // Control domain: {{ item }}
+    
+    // Control domain: Sentiment
     {
-      path: '/{{ item | lower }}s',
-      name: '{{ item }}s',
-      component: () => import('@/pages/{{ item }}sListPage.vue'),
+      path: '/sentiments',
+      name: 'Sentiments',
+      component: () => import('@/pages/SentimentsListPage.vue'),
       meta: { requiresAuth: true }
     },
     {
-      path: '/{{ item | lower }}s/new',
-      name: '{{ item }}New',
-      component: () => import('@/pages/{{ item }}NewPage.vue'),
+      path: '/sentiments/new',
+      name: 'SentimentNew',
+      component: () => import('@/pages/SentimentNewPage.vue'),
       meta: { requiresAuth: true }
     },
     {
-      path: '/{{ item | lower }}s/:id',
-      name: '{{ item }}Edit',
-      component: () => import('@/pages/{{ item }}EditPage.vue'),
+      path: '/sentiments/:id',
+      name: 'SentimentEdit',
+      component: () => import('@/pages/SentimentEditPage.vue'),
       meta: { requiresAuth: true }
     },
-    {% endfor %}
-    {% for item in service.data_domains.creates %}
-    // Create domain: {{ item }}
+    
+    // Control domain: Ratio
     {
-      path: '/{{ item | lower }}s',
-      name: '{{ item }}s',
-      component: () => import('@/pages/{{ item }}sListPage.vue'),
-      meta: { requiresAuth: true }
-    },
-    {
-      path: '/{{ item | lower }}s/new',
-      name: '{{ item }}New',
-      component: () => import('@/pages/{{ item }}NewPage.vue'),
+      path: '/ratios',
+      name: 'Ratios',
+      component: () => import('@/pages/RatiosListPage.vue'),
       meta: { requiresAuth: true }
     },
     {
-      path: '/{{ item | lower }}s/:id',
-      name: '{{ item }}View',
-      component: () => import('@/pages/{{ item }}ViewPage.vue'),
-      meta: { requiresAuth: true }
-    },
-    {% endfor %}
-    {% for item in service.data_domains.consumes %}
-    // Consume domain: {{ item }}
-    {
-      path: '/{{ item | lower }}s',
-      name: '{{ item }}s',
-      component: () => import('@/pages/{{ item }}sListPage.vue'),
+      path: '/ratios/new',
+      name: 'RatioNew',
+      component: () => import('@/pages/RatioNewPage.vue'),
       meta: { requiresAuth: true }
     },
     {
-      path: '/{{ item | lower }}s/:id',
-      name: '{{ item }}View',
-      component: () => import('@/pages/{{ item }}ViewPage.vue'),
+      path: '/ratios/:id',
+      name: 'RatioEdit',
+      component: () => import('@/pages/RatioEditPage.vue'),
       meta: { requiresAuth: true }
     },
-    {% endfor %}
+    
+    
+    
+    // Consume domain: Post
+    {
+      path: '/posts',
+      name: 'Posts',
+      component: () => import('@/pages/PostsListPage.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/posts/:id',
+      name: 'PostView',
+      component: () => import('@/pages/PostViewPage.vue'),
+      meta: { requiresAuth: true }
+    },
+    
+    // Consume domain: Comment
+    {
+      path: '/comments',
+      name: 'Comments',
+      component: () => import('@/pages/CommentsListPage.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/comments/:id',
+      name: 'CommentView',
+      component: () => import('@/pages/CommentViewPage.vue'),
+      meta: { requiresAuth: true }
+    },
+    
+    // Consume domain: User
+    {
+      path: '/users',
+      name: 'Users',
+      component: () => import('@/pages/UsersListPage.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/users/:id',
+      name: 'UserView',
+      component: () => import('@/pages/UserViewPage.vue'),
+      meta: { requiresAuth: true }
+    },
+    
     // Admin route
     {
       path: '/admin',
@@ -94,7 +122,7 @@ router.beforeEach((to, _from, next) => {
   const requiredRole = to.meta.requiresRole as string | undefined
   if (requiredRole && !hasStoredRole(requiredRole)) {
     // Redirect to default page if user doesn't have required role
-    next({ name: '{{ service.data_domains.controls[0] }}s' })
+    next({ name: 'Sentiments' })
     return
   }
   
@@ -102,7 +130,7 @@ router.beforeEach((to, _from, next) => {
 })
 
 router.afterEach((to) => {
-  document.title = to.path === '/login' ? '{{info.name}} Login' : '{{service.name | capitalize}}'
+  document.title = to.path === '/login' ? 'Creators Dashboard Login' : 'Classifier'
 })
 
 export default router

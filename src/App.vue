@@ -7,7 +7,7 @@
         data-automation-id="nav-drawer-toggle"
         aria-label="Open navigation drawer"
       />
-      <v-app-bar-title>{{service.name | capitalize}}</v-app-bar-title>
+      <v-app-bar-title>Classifier</v-app-bar-title>
     </v-app-bar>
 
     <v-navigation-drawer
@@ -16,49 +16,65 @@
       temporary
     >
       <v-list density="compact" nav>
-        {% for item in service.data_domains.controls %}
-        <v-list-subheader>{{ item | upper }} DOMAIN</v-list-subheader>
+        
+        <v-list-subheader>SENTIMENT DOMAIN</v-list-subheader>
         <v-list-item
-          to="/{{ item | lower }}s"
+          to="/sentiments"
           prepend-icon="mdi-view-list"
-          title="List {{ item }}s"
-          data-automation-id="nav-{{ item | lower }}s-list-link"
+          title="List Sentiments"
+          data-automation-id="nav-sentiments-list-link"
         />
         <v-list-item
-          to="/{{ item | lower }}s/new"
+          to="/sentiments/new"
           prepend-icon="mdi-plus"
-          title="New {{ item }}"
-          data-automation-id="nav-{{ item | lower }}s-new-link"
+          title="New Sentiment"
+          data-automation-id="nav-sentiments-new-link"
         />
 
         <v-divider class="my-2" />
-        {% endfor %}
-        {% for item in service.data_domains.creates %}
-        <v-list-subheader>{{ item | upper }} DOMAIN</v-list-subheader>
+        
+        <v-list-subheader>RATIO DOMAIN</v-list-subheader>
         <v-list-item
-          to="/{{ item | lower }}s"
+          to="/ratios"
           prepend-icon="mdi-view-list"
-          title="List {{ item }}s"
-          data-automation-id="nav-{{ item | lower }}s-list-link"
+          title="List Ratios"
+          data-automation-id="nav-ratios-list-link"
         />
         <v-list-item
-          to="/{{ item | lower }}s/new"
+          to="/ratios/new"
           prepend-icon="mdi-plus"
-          title="New {{ item }}"
-          data-automation-id="nav-{{ item | lower }}s-new-link"
+          title="New Ratio"
+          data-automation-id="nav-ratios-new-link"
         />
 
         <v-divider class="my-2" />
-        {% endfor %}
-        {% for item in service.data_domains.consumes %}
-        <v-list-subheader>{{ item | upper }} DOMAIN</v-list-subheader>
+        
+        
+        
+        <v-list-subheader>POST DOMAIN</v-list-subheader>
         <v-list-item
-          to="/{{ item | lower }}s"
+          to="/posts"
           prepend-icon="mdi-view-list"
-          title="List {{ item }}s"
-          data-automation-id="nav-{{ item | lower }}s-list-link"
+          title="List Posts"
+          data-automation-id="nav-posts-list-link"
         />
-        {% endfor %}
+        
+        <v-list-subheader>COMMENT DOMAIN</v-list-subheader>
+        <v-list-item
+          to="/comments"
+          prepend-icon="mdi-view-list"
+          title="List Comments"
+          data-automation-id="nav-comments-list-link"
+        />
+        
+        <v-list-subheader>USER DOMAIN</v-list-subheader>
+        <v-list-item
+          to="/users"
+          prepend-icon="mdi-view-list"
+          title="List Users"
+          data-automation-id="nav-users-list-link"
+        />
+        
       </v-list>
 
       <template v-slot:append>
